@@ -9,12 +9,14 @@ import Auth from './src/navigations/Auth'
 import NovoProjeto from './src/pages/NovoProjeto'
 
 
+
+
 const App = () => {
 
   return (
    <UserProvider>
     <NavigationContainer>
-      <Auth/>
+      <Main/>
    </NavigationContainer>
   </UserProvider>
   )

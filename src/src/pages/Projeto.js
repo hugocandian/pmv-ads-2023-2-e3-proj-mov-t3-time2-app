@@ -25,7 +25,7 @@ const DATA = [
     tarefa4: 'Entregar ao cliente',
   },
   {
-    id: 1,
+    id: 2,
     nome: 'Happy Boss',
     descricao: 'Não reclame e deixe seu chefe feliz.',
     colaborador: 'Julia Campos',
@@ -35,7 +35,7 @@ const DATA = [
     tarefa2: 'Não respire perto dele.',
   },
   {
-    id: 1,
+    id: 3,
     nome: 'Happy Boss',
     descricao: 'Não reclame e deixe seu chefe feliz.',
     colaborador: 'Julia Campos',

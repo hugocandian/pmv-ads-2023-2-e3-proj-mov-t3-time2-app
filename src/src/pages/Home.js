@@ -13,7 +13,7 @@ const Projeto = () => {
   return (
     <Container>
       <Header title="TaskBook" />
-      <Header title={'Olá, ' + name} />
+      <Header title={'Olá, '} />
 
       <Body>
         <Searchbar
