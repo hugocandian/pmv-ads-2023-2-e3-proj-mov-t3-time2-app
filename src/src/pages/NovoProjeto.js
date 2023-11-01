@@ -34,6 +34,8 @@ const NovoProjeto = ({ route }) => {
   const [dataInicio, setDataInicio] = useState(new Date().toLocaleDateString('pt-BR'));
   const [dataFim, setDataFim] = useState(new Date().toLocaleDateString('pt-BR'));
   const [tarefa, setTarefa] = useState('');
+  const [showInicio, setShowInicio] = useState(false);
+  const [showFim, setShowFim] = useState(false);
 
     useEffect(() => {
       if (item) {
@@ -77,22 +79,22 @@ const NovoProjeto = ({ route }) => {
             onChangeText={(text) => setColaborador(text)}
           />
 
-          {show && (
+          {showInicio && (
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
               mode={'date'}
               is24Hour={true}
-              onTouchCancel={() => setShow(false)}
+              onTouchCancel={() => setShowInicio(false)}
               onChange={(event, date) => {
-                setShow(false);
+                setShowInicio(false);
                 setDataInicio(date.toLocaleDateString('pt-BR'));
               }}
             />
           )}
 
 
-          <TouchableOpacity onPress={() => showDatepicker()}>
+          <TouchableOpacity onPress={() => setShowInicio(true)}>
             <Input
               label="Data Início"
               value={dataInicio}
@@ -102,22 +104,22 @@ const NovoProjeto = ({ route }) => {
             />
           </TouchableOpacity>
               
-          {show && (
+          {showFim && (
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
               mode={'date'}
               is24Hour={true}
-              onTouchCancel={() => setShow(false)}
+              onTouchCancel={() => setShowFim(false)}
               onChange={(event, date) => {
-                setShow(false);
+                setShowFim(false);
                 setDataFim(date.toLocaleDateString('pt-BR'));
               }}
             />
           )}
 
 
-          <TouchableOpacity onPress={() => showDatepicker()}>
+          <TouchableOpacity onPress={() => setShowFim(true)}>
             <Input
               label="Data Fim"
               value={dataFim}
@@ -125,7 +127,6 @@ const NovoProjeto = ({ route }) => {
               editable={false}
             />
           </TouchableOpacity>
-
           <Input
             label="Tarefa"
             value={tarefa}
