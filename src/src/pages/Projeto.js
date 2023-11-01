@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, FlatList, View, Text } from 'react-native';
-import { Button, List, FAB } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
-//import { useIsFocused } from '@react-navigation/native';
+import { StyleSheet, FlatList } from 'react-native';
+import { List, FAB } from 'react-native-paper';
 
 import Container from '../components/Container';
-import Header from '../components/Header';
 import Body from '../components/Body';
 
 import { getProjeto } from '../services/projeto.services.js';
-import {useUser} from '../contexts/UserContext';
 
 const DATA = [
   {
@@ -46,19 +42,15 @@ const DATA = [
   },
 ];
 
+const Projeto = ({navigation}) => {
 
-
-const Projeto = () => {
-  const navigation = useNavigation();
-  const {name} = useUser();
-  //const isFocused = useIsFocused();
   const [projeto, setProjeto] = useState([]);
 
   useEffect(() => {
-   getProjeto().then((dados) => {
-     console.log(dados);
-    setProjeto(dados);
-   });
+    getProjeto().then((dados) => {
+      console.log(dados);
+      setProjeto(dados);
+    });
   }, []);
 
   const renderitem = ({ item }) => (
@@ -66,44 +58,30 @@ const Projeto = () => {
       title={'Projeto ' + item.nome}
       description={item.descricao}
       left={(props) => <List.Icon {...props} icon="clipboard-outline" />}
-      onPress={() => navigation.navigate('NovoProjeto', { item })}
+      onPress={() => navigation.navigate('novoProjeto', {item})}
     />
   );
 
   return (
     <Container>
-      <Header title="TaskBook" />
-
       <Body>
-        <Button
-          style={styles.buttom}
-          icon="camera"
-          mode="contained"
-          onPress={() => navigation.navigate('NovoProjeto')}>
-          Criar Projeto
-        </Button>
-
         <FlatList
           data={DATA}
           renderItem={renderitem}
           keyExtractor={(item) => item.id}
         />
-        <FAB
-          style={styles.fab}
-          small
-          icon="plus"
-          onPress={() => navigation.navigate('NovoProjeto')}
-        />
       </Body>
+      <FAB
+        icon="plus"
+        label='Criar projeto'
+        style={styles.fab}
+        onPress={() => navigation.navigate('novoProjeto')}
+      />
     </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  buttom: {
-    margin: 8,
-    backgroundColor: '#659cf4',
-  },
   fab: {
     position: 'absolute',
     margin: 16,
