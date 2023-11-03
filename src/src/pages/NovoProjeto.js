@@ -9,12 +9,11 @@ import Header from '../components/Header';
 import Body from '../components/Body';
 import Input from '../components/Input';
 
-import { updateProjeto, insertProjeto, deleteProjeto } from '../services/projeto.services';
-//import { ScrollView } from 'react-native-gesture-handler';
+import { insertProjetos, deleteProjetos, updateProjetos } from '../services/ProjetosServicesDB';
 
 const NovoProjeto = ({ route }) => {
   const navigation = useNavigation();
-  const {item} = route.params ? route.params : {};
+  const { item } = route.params ? route.params : {};
 
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
@@ -37,27 +36,56 @@ const NovoProjeto = ({ route }) => {
   const [showInicio, setShowInicio] = useState(false);
   const [showFim, setShowFim] = useState(false);
 
-    useEffect(() => {
-      if (item) {
-        setDataInicio(item.datainicio);
-        setDataFim(item.datafim);
-        setDescricao(item.descricao);
-        setNome(item.nome);
-        setColaborador(item.colaborador);
-        setTarefa(item.tarefa);
-      }
-    }, [item]);
-    console.log(dataInicio)
-    console.log(dataFim)
+  useEffect(() => {
+    if (item) {
+      setNome(item.nome);
+      setDescricao(item.descricao);
+      setColaborador(item.colaborador);
+      setDataInicio(item.datainicio);
+      setDataFim(item.datafim);
+      setTarefa(item.tarefa);
+    }
+  }, [item]);
+
+  const handleSalvar = () => {
+    if (item) {
+      updateProjetos(
+        {
+          nome: nome,
+          descricao: descricao,
+          colaborador: colaborador,
+          datainicio: dataInicio,
+          datafim: dataFim,
+          tarefa: tarefa
+        }
+      ).then();
+    } else {
+      insertProjetos(
+        {
+          nome: nome,
+          descricao: descricao,
+          colaborador: colaborador,
+          datainicio: dataInicio,
+          datafim: dataFim,
+          tarefa: tarefa
+        }
+        ).then();
+    }
+    navigation.goBack()
+  }
+  const handleExcluir = () => {
+    deleteProjetos(item.id).then();
+    navigation.goBack();
+  };
   return (
     <Container>
       <Header
 
         title={'Novo Projeto'} goBack={() => navigation.goBack()} >
 
-        <Appbar.Action icon="check" onPress={() => console.warn('sdfsdf')} />
+        <Appbar.Action icon="check" onPress={handleSalvar} />
         {
-          <Appbar.Action icon="trash-can" onPress={() => console.warn('abbb')} />
+          <Appbar.Action icon="trash-can" onPress={handleExcluir} />
         }
       </Header>
       <ScrollView>
@@ -100,10 +128,10 @@ const NovoProjeto = ({ route }) => {
               value={dataInicio}
               left={<TextInput.Icon icon="calendar" />}
               editable={false}
-              
+
             />
           </TouchableOpacity>
-              
+
           {showFim && (
             <DateTimePicker
               testID="dateTimePicker"
@@ -137,7 +165,7 @@ const NovoProjeto = ({ route }) => {
             mode="contained"
             style={styles.buttom}
             color={'#659cf4'}
-            onPress={() => console.warn('a')}>
+            onPress={handleSalvar}>
             Salvar
           </Button>
 
@@ -146,7 +174,7 @@ const NovoProjeto = ({ route }) => {
               mode="contained"
               color={'red'}
               style={styles.buttom}
-              onPress={() => console.warn('abbb')}>
+              onPress={handleExcluir}>
               Excluir
             </Button>
           }
