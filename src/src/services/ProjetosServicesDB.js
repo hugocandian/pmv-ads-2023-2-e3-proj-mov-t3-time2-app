@@ -16,7 +16,7 @@ export const insertProjetos = async (param) => {
 
 export const updateProjetos = async (param) => {
     let results = await DB_EXEC(`update projetos set nome=?, descricao=?, colaborador=?, datafim=?, datainicio=?, tarefa=?
-    where id=?`, [param.nome, param. descricao, param.colaborador, param.datafim, param.datainicio, param.tarefa, param.id]);
+    where id=?`, [param.nome, param.descricao, param.colaborador, param.datafim, param.datainicio, param.tarefa, param.id]);
     //console.log(results);
     return results.rowsAffected;
   }

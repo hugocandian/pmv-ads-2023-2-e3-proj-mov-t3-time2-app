@@ -56,7 +56,8 @@ const NovoProjeto = ({ route }) => {
           colaborador: colaborador,
           datainicio: dataInicio,
           datafim: dataFim,
-          tarefa: tarefa
+          tarefa: tarefa,
+          id: item.id
         }
       ).then();
     } else {
